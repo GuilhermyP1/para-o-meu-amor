@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum de Memórias</title>
+    <link rel="icon" href="imagem/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: black;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background-color: #000;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(250, 55, 116, 0.3);
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(250, 55, 116, 0.5);
+        }
+        
+        .header p {
+            color: #FA3774;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #FA3774;
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: floatUp 8s linear infinite;
+        }
+        
+        .heart:before,
+        .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #FA3774;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(45deg) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(45deg) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            perspective: 1000px;
+        }
+        
+        .photo-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease, box-shadow 0.6s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-20px) rotateY(10deg);
+            box-shadow: 20px 20px 40px rgba(250, 55, 116, 0.4);
+            z-index: 1;
+        }
+        
+        .photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-card:hover .photo-img {
+            transform: scale(1.1);
+        }
+        
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-card:hover .photo-overlay {
+            transform: translateY(0);
+        }
+        
+        .photo-title {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        
+        .photo-date {
+            color: #FA3774;
+            font-style: italic;
+        }
+        
+        .photo-description {
+            margin-top: 0.5rem;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        
+        .love-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-card:hover .love-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .love-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #FA3774;
+        }
+        
+        .title-3d {
+            text-align: center;
+            margin: 4rem 0;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        
+        .title-3d h2 {
+            font-size: 3rem;
+            color: white;
+            letter-spacing: 3px;
+            transform: translateZ(20px);
+            text-shadow: 0 0 10px rgba(250, 55, 116, 0.8);
+        }
+        
+        .title-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: 3rem;
+            color: #FA3774;
+            letter-spacing: 3px;
+            opacity: 0.3;
+        }
+        
+        .layer-1 {
+            transform: translateZ(-5px);
+        }
+        
+        .layer-2 {
+            transform: translateZ(-10px);
+        }
+        
+        .layer-3 {
+            transform: translateZ(-15px);
+        }
+        
+        .quotes-section {
+            text-align: center;
+            margin: 6rem 0;
+            position: relative;
+        }
+        
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            position: relative;
+        }
+        
+        .quote:before {
+            content: '"';
+            font-size: 6rem;
+            color: #FA3774;
+            opacity: 0.3;
+            position: absolute;
+            top: -3rem;
+            left: -2rem;
+        }
+        
+        .author {
+            margin-top: 1.5rem;
+            color: #FA3774;
+            font-size: 1.2rem;
+        }
+        
+        .footer {
+            background-color: black;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid #FA3774;
+        }
+        
+        .footer p {
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .heart-beat {
+            display: inline-block;
+            color: #FA3774;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        .botao {
+            background-color: #FA3774;
+            padding: 25px 35px;
+            border-radius: 25px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .linka {
+            text-decoration: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #FA3774;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background-color: white;
+            color: #FA3774;
+            box-shadow: 0 0 15px rgba(250, 55, 116, 0.8);
+            transform: scale(1.05);
+        }
+        
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .title-3d h2 {
+                font-size: 2rem;
+            }
+            
+            .title-layer {
+                font-size: 2rem;
+            }
+            
+            .quote {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Nosso Álbum de Memórias</h1>
+        <p>Cada momento juntos é uma história que merece ser eternizada</p>
+        <div class="floating-hearts" id="floating-hearts"></div>
+    </header>
+    
+    <div class="container">
+        <div class="title-3d">
+            <h2>Memórias Românticas</h2>
+            <div class="title-layer layer-1">Memórias Românticas</div>
+            <div class="title-layer layer-2">Memórias Românticas</div>
+            <div class="title-layer layer-3">Memórias Românticas</div>
+        </div>
+        
+        <div class="gallery">
+            <div class="photo-card">
+                <img src="imagem/eu.jpeg" class="photo-img">
+                <div class="photo-overlay">
+                    <p class="photo-date">18 de Abril, 2025</p>
+                    
+                </div>
+                <div class="love-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <img src="imagem/aliança.jpg"  class="photo-img">
+                <div class="photo-overlay">
+            
+                </div>
+                <div class="love-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <img src="imagem/core.jpg"  class="photo-img">
+                <div class="photo-overlay">
+                </div>
+                <div class="love-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <img src="imagem/homem.jpg" class="photo-img">
+                <div class="photo-overlay">
+                </div>
+                <div class="love-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <img src="imagem/meia.jpg" class="photo-img">
+                <div class="photo-overlay">
+                </div>
+                <div class="love-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="photo-card">
+                <img src="imagem/shop.jpg" class="photo-img">
+                <div class="photo-overlay">
+                </div>
+                <div class="love-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quotes-section">
+            <p class="quote">O amor é a única coisa que cresce quando é compartilhado.</p>
+            <p class="author">– Antoine de Saint-Exupéry</p>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>Feito com <span class="heart-beat">♥</span> para eternizar nosso amor</p>
+    </footer>
+
+<center><a href="momento8.html" class="btn"<h3>VOLTAR</h3></a></center>
+
+    <script>
+        // Criar efeito de corações flutuantes
+        const heartContainer = document.getElementById('floating-hearts');
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Posição aleatória
+            heart.style.left = Math.random() * 100 + '%';
+            
+            // Tamanho aleatório
+            const size = Math.random() * 20 + 10;
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            
+            // Atraso na animação
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            
+            heartContainer.appendChild(heart);
+            
+            // Remover o coração depois que a animação terminar
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+        
+        // Criar corações em intervalos
+        setInterval(createHeart, 300);
+        
+        // Efeito parallax no título 3D
+        const title3d = document.querySelector('.title-3d');
+        const layers = document.querySelectorAll('.title-layer');
+        
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 30;
+            const y = (window.innerHeight / 2 - e.pageY) / 30;
+            
+            title3d.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+            
+            layers.forEach((layer, index) => {
+                const factor = (index + 1) * 0.5;
+                layer.style.transform = `translateX(${x * factor}px) translateY(${y * factor}px) translateZ(-${(index + 1) * 5}px)`;
+            });
+        });
+        
+        // Adicionar efeito de rotação 3D nos cartões
+        const cards = document.querySelectorAll('.photo-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const cardRect = card.getBoundingClientRect();
+                const cardCenterX = cardRect.left + cardRect.width / 2;
+                const cardCenterY = cardRect.top + cardRect.height / 2;
+                
+                const angleY = -(e.clientX - cardCenterX) / 10;
+                const angleX = (e.clientY - cardCenterY) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateY(${angleY}deg) rotateX(${angleX}deg) translateY(-20px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

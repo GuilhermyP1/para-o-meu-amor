@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Um abraço!</title>
+    <link rel="icon" href="imagem/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FA3774, #FF6B9D);
+            font-family: 'Verdana', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1000px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .author {
+            color: #FA3774;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-section img {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logo-section img:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transform: scale(1.02);
+        }
+
+        .love-marquee {
+            background: linear-gradient(90deg, #FA3774, #FF6B9D);
+            padding: 15px;
+            margin: 30px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-content {
+            white-space: nowrap;
+            font-weight: bold;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            animation: slideText 15s linear infinite;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes slideText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .main-title {
+            color: white;
+            font-size: clamp(32px, 6vw, 64px);
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .audio-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .audio-section audio {
+            width: 100%;
+            max-width: 400px;
+            height: 50px;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        .love-message {
+            color: white;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            font-style: italic;
+        }
+
+        .love-message i {
+            display: block;
+        }
+
+        .animated-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #FA3774, #FF6B9D);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 5px 20px rgba(250, 55, 116, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        .animated-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .animated-button:hover::before {
+            left: 100%;
+        }
+
+        .animated-button:hover {
+            background: linear-gradient(45deg, #e8325f, #f055a0);
+            box-shadow: 0 8px 25px rgba(250, 55, 116, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .button-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .back-button {
+            background: linear-gradient(45deg, #333, #666);
+            margin-top: 30px;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(45deg, #555, #888);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 20px;
+            animation: gentleFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.3;
+            }
+            80% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-50px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .love-message {
+                font-size: 14px;
+                padding: 20px;
+            }
+            
+            .animated-button {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+
+            .audio-section {
+                padding: 15px;
+            }
+
+            .main-title {
+                font-size: clamp(24px, 8vw, 48px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts">
+        <div class="floating-heart" style="left: 10%; animation-delay: 0s;">💕</div>
+        <div class="floating-heart" style="left: 20%; animation-delay: 1s;">💖</div>
+        <div class="floating-heart" style="left: 30%; animation-delay: 2s;">💗</div>
+        <div class="floating-heart" style="left: 40%; animation-delay: 3s;">💓</div>
+        <div class="floating-heart" style="left: 50%; animation-delay: 4s;">💕</div>
+        <div class="floating-heart" style="left: 60%; animation-delay: 5s;">💖</div>
+        <div class="floating-heart" style="left: 70%; animation-delay: 0.5s;">💗</div>
+        <div class="floating-heart" style="left: 80%; animation-delay: 1.5s;">💓</div>
+        <div class="floating-heart" style="left: 90%; animation-delay: 2.5s;">💕</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="author">Feito por Guilhermy Pimentel Batista</div>
+        </div>
+
+        <div class="logo-section">
+            <img width="300" height="200" src="imagem/lo.png" alt="Logo">
+        </div>
+
+        <div class="love-marquee">
+            <div class="marquee-content">
+                EU TE AMO ❤️ EU TE AMO ❤️ EU TE AMO ❤️ EU TE AMO ❤️ EU TE AMO ❤️ EU TE AMO ❤️ EU TE AMO ❤️ EU TE AMO ❤️
+            </div>
+        </div>
+
+        <h1 class="main-title">Te vivo</h1>
+
+        <div class="audio-section">
+            <audio controls>
+                <source src="video/tevivo.mpeg" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+        </div>
+
+        <div class="love-message">
+            <i>"Quando me sinto só<br>
+            Te faço mais presente<br>
+            Eu fecho os meus olhos<br>
+            E enxergo a gente<br>
+            Em questão de segundos<br>
+            Voo pra outro mundo<br>
+            Outra constelação<br>
+            Não dá para explicar<br>
+            Ao ver você chegando<br>
+            Qual a sensação<br>
+            A gente não precisa 'ta colado pra 'ta junto<br>
+            Os nossos corpos se conversam por horas e horas<br>
+            Sem palavras 'tão dizendo a todo instante um pro outro<br>
+            O quanto se adoram<br>
+            Eu não preciso te olhar<br>
+            Pra te ter em meu mundo<br>
+            Porque aonde quer que eu vá<br>
+            Você está em tudo<br>
+            Tudo, tudo que eu preciso, oh<br>
+            Te vivo<br>
+            Quando me sinto só<br>
+            Te faço mais presente<br>
+            Eu fecho os meus olhos<br>
+            E enxergo a gente<br>
+            Em questão de segundos<br>
+            Voo pra outro mundo<br>
+            Outra constelação<br>
+            Não dá para explicar<br>
+            Ao ver você chegando<br>
+            Qual a sensação, uh oh<br>
+            A gente não precisa 'ta colado pra 'ta junto<br>
+            Os nossos corpos se conversam por horas e horas<br>
+            Sem palavras 'tão dizendo a todo instante um pro outro<br>
+            O quanto se adoram<br>
+            Eu não preciso te olhar<br>
+            Pra te ter em meu mundo<br>
+            Porque aonde quer que eu vá<br>
+            Você está em tudo<br>
+            Tudo, tudo que eu preciso<br>
+            A gente não precisa 'ta colado pra 'ta junto<br>
+            Os nossos corpos se conversam por horas e horas<br>
+            Sem palavras 'tão dizendo a todo instante um pro outro<br>
+            O quanto se adoram<br>
+            Eu não preciso te olhar<br>
+            Pra te ter em meu mundo<br>
+            Porque aonde quer que eu vá<br>
+            Você está em tudo<br>
+            Tudo, tudo que eu preciso uh oh uoh<br>
+            Te vivo"<br></i>
+        </div>
+
+        <div class="button-section">
+            <a href="fim.html" class="animated-button">
+                ✨ Próximo ✨
+            </a>
+        </div>
+
+        <div class="button-section">
+            <a href="momento7.html" class="animated-button back-button">
+                ← VOLTAR
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Adiciona corações flutuantes suaves
+        function createFloatingHeart() {
+            const hearts = ['💕', '💖', '💗', '💓', '💘'];
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            
+            document.querySelector('.floating-hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        // Cria corações a cada 4 segundos (mais suave)
+        setInterval(createFloatingHeart, 4000);
+
+        // Efeito suave nos botões
+        document.querySelectorAll('.animated-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                this.style.transform = 'translateY(0px) scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cada momento...</title>
+    <link rel="icon" href="imagem/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FA3774, #FF6B9D);
+            font-family: 'Verdana', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 1100px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .author {
+            color: #FA3774;
+            font-size: 14px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-frame {
+            display: inline-block;
+            padding: 10px;
+            background: linear-gradient(45deg, #FA3774, #FF6B9D);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(250, 55, 116, 0.3);
+            animation: gentlePulse 4s ease-in-out infinite;
+        }
+
+        .logo-frame img {
+            border-radius: 15px;
+            display: block;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 15px 35px rgba(250, 55, 116, 0.3);
+            }
+            50% { 
+                transform: scale(1.02);
+                box-shadow: 0 20px 45px rgba(250, 55, 116, 0.5);
+            }
+        }
+
+        .love-marquee {
+            background: linear-gradient(90deg, #FA3774, #FF6B9D);
+            padding: 18px;
+            margin: 30px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(250, 55, 116, 0.3);
+        }
+
+        .marquee-content {
+            white-space: nowrap;
+            font-weight: bold;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            animation: slideText 15s linear infinite;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes slideText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .main-title {
+            color: white;
+            font-size: clamp(20px, 4vw, 32px);
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            letter-spacing: 1px;
+            margin: 40px 0;
+            text-align: center;
+            background: linear-gradient(45deg, #ffffff, #ffccdd);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .love-message {
+            color: white;
+            font-size: 20px;
+            line-height: 1.8;
+            text-align: justify;
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.1);
+            font-family: Arial, sans-serif;
+        }
+
+        .photos-section {
+            margin: 50px 0;
+        }
+
+        .first-photo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .second-photo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .photo-frame {
+            display: inline-block;
+            background: linear-gradient(45deg, #FA3774, #FF6B9D);
+            padding: 12px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .photo-frame:hover {
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .photo-frame img {
+            border-radius: 20px;
+            display: block;
+        }
+
+        .animated-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #FA3774, #FF6B9D);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 8px 25px rgba(250, 55, 116, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        .animated-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .animated-button:hover::before {
+            left: 100%;
+        }
+
+        .animated-button:hover {
+            background: linear-gradient(45deg, #e8325f, #f055a0);
+            box-shadow: 0 12px 35px rgba(250, 55, 116, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .button-section {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .back-button {
+            background: linear-gradient(45deg, #333, #666);
+            margin-top: 30px;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(45deg, #555, #888);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 24px;
+            animation: gentleFloat 10s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.4;
+            }
+            85% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .love-message {
+                font-size: 18px;
+                padding: 20px;
+            }
+            
+            .animated-button {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+
+            .back-button {
+                font-size: 20px;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts">
+        <div class="floating-heart" style="left: 5%; animation-delay: 0s;">💕</div>
+        <div class="floating-heart" style="left: 15%; animation-delay: 1s;">💖</div>
+        <div class="floating-heart" style="left: 25%; animation-delay: 2s;">💗</div>
+        <div class="floating-heart" style="left: 35%; animation-delay: 3s;">💓</div>
+        <div class="floating-heart" style="left: 45%; animation-delay: 4s;">💘</div>
+        <div class="floating-heart" style="left: 55%; animation-delay: 5s;">💕</div>
+        <div class="floating-heart" style="left: 65%; animation-delay: 0.5s;">💖</div>
+        <div class="floating-heart" style="left: 75%; animation-delay: 1.5s;">💗</div>
+        <div class="floating-heart" style="left: 85%; animation-delay: 2.5s;">💓</div>
+        <div class="floating-heart" style="left: 95%; animation-delay: 3.5s;">💘</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="author">Feito por Guilhermy Pimentel Batista</div>
+            
+            <div class="logo-section">
+                <div class="logo-frame">
+                    <img width="300" height="200" src="imagem/lo.png" alt="Logo">
+                </div>
+            </div>
+        </div>
+
+        <div class="love-marquee">
+            <div class="marquee-content">
+                EU TE AMO &nbsp;🔸&nbsp; EU TE AMO 🔸EU TE AMO &nbsp;🔸&nbsp; EU TE AMO 🔸EU TE AMO &nbsp;🔸&nbsp; EU TE AMO 🔸EU TE AMO &nbsp;🔸&nbsp; EU TE AMO 🔸EU TE AMO &nbsp;🔸&nbsp; EU TE AMO 🔸EU TE AMO &nbsp;🔸&nbsp; EU TE AMO 🔸
+            </div>
+        </div>
+
+        <h1 class="main-title">Cada momento com você se torna especial!</h1>
+
+        <div class="love-message">
+            Você é a minha felicidade, a minha paz, a minha razão de ser. Cada momento que passamos juntos é um presente, uma dadiva que eu valorizo profundamente. Eu amo você, e eu sou grato por ter você na minha vida.
+        </div>
+
+        <div class="photos-section">
+            <div class="first-photo">
+                <div class="photo-frame">
+                    <img height="400" width="300" src="imagem/risada.jpg" alt="Foto de risada">
+                </div>
+            </div>
+
+            <div class="second-photo">
+                <div class="photo-frame">
+                    <img height="400" width="300" src="imagem/shop.jpg" alt="Foto do shopping">
+                </div>
+            </div>
+        </div>
+
+        <div class="button-section">
+            <a href="momento4.html" class="animated-button">
+                ✨ Continuar ✨
+            </a>
+        </div>
+
+        <div class="button-section">
+            <a href="momento2.html" class="animated-button back-button">
+                ← Voltar
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Criar corações flutuantes
+        function createFloatingHeart() {
+            const hearts = ['💕', '💖', '💗', '💓', '💘'];
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 4 + 8) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.querySelector('.floating-hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 12000);
+        }
+
+        // Criar corações a cada 4 segundos
+        setInterval(createFloatingHeart, 4000);
+
+        // Efeito de clique nos botões
+        document.querySelectorAll('.animated-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                this.style.transform = 'translateY(0px) scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
